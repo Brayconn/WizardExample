@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WizardExample.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="using:WizardExample.Controls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="WizardExample.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="WizardExample">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+  <c:WizardControl
+    SelectedIndex="{Binding SelectedIndex}"
+    NextCommand="{Binding NextCommand}"
+    BackCommand="{Binding BackCommand}">
+    <TextBox c:WizardControl.BackEnabled="False"
+             Watermark="Enter a thing if you want"/>
+    <TextBox c:WizardControl.NextEnabled="{Binding SomeParameter^}"
+             Watermark="Enter something to continue"
+             Text="{Binding RequiredText}"/>
+    <TextBox c:WizardControl.NextContent="Finish"
+             Watermark="You're done!"
+             />
+  </c:WizardControl>
+
+</Window>
