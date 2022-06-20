@@ -109,15 +109,21 @@ namespace WizardExample.Controls
         }
         private void Carousel_SelectionChanged(object? sender, SelectionChangedEventArgs? e)
         {
-            if (sender is Carousel carousel)
-            {
-                if (carousel.SelectedItem is Control control)
-                {
-                    ReplaceBinding(ref backEnabledBinding, BackButton, Button.IsEnabledProperty, control, BackEnabled);
-                    ReplaceBinding(ref nextEnabledBinding, NextButton, Button.IsEnabledProperty, control, NextEnabled);
-                    ReplaceBinding(ref nextContentBinding, NextButton, Button.ContentProperty, control, NextContent);
-                }
-            }
+            // What should this do? If it's just to enable / disable the buttons, we can do this more simple. 
+            // Either do it via command or by doing it here:
+
+            BackButton.IsEnabled = SelectedIndex > 0;
+            NextButton.IsEnabled = SelectedIndex < ItemCount - 1;
+
+            // if (sender is Carousel carousel)
+            // {
+            //     if (carousel.SelectedItem is Control control)
+            //     {
+            //         ReplaceBinding(ref backEnabledBinding, BackButton, Button.IsEnabledProperty, control, BackEnabled);
+            //         ReplaceBinding(ref nextEnabledBinding, NextButton, Button.IsEnabledProperty, control, NextEnabled);
+            //         ReplaceBinding(ref nextContentBinding, NextButton, Button.ContentProperty, control, NextContent);
+            //     }
+            // }
         }
     }
 }
