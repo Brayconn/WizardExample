@@ -15,12 +15,11 @@
 
   <c:WizardControl
     SelectedIndex="{Binding SelectedIndex}"
-    NextCommand="{Binding NextCommand}"
+    NextCommand="{Binding NextAdvancedCommand}"
     BackCommand="{Binding BackCommand}">
     <TextBox c:WizardControl.BackEnabled="False"
              Watermark="Enter a thing if you want"/>
-    <TextBox c:WizardControl.NextEnabled="{Binding SomeParameter^}"
-             Watermark="Enter something to continue"
+    <TextBox Watermark="Enter something to continue"
              Text="{Binding RequiredText}"/>
     <TextBox c:WizardControl.NextContent="Finish"
              Watermark="You're done!"

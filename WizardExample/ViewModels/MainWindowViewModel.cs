@@ -5,23 +5,40 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
+using CommunityToolkit.Mvvm.Input;
 
 namespace WizardExample.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     { 
         int selectedIndex = 0;
-        public int SelectedIndex { get => selectedIndex; set => this.RaiseAndSetIfChanged(ref selectedIndex, value); }
+        public int SelectedIndex
+        {
+            get => selectedIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedIndex, value);
+                NextAdvancedCommand.NotifyCanExecuteChanged();
+            }
+        }
 
         string requiredText = "";
-        public string RequiredText { get => requiredText; set => this.RaiseAndSetIfChanged(ref requiredText, value); }
+        public string RequiredText
+        {
+            get => requiredText;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref requiredText, value);
+                NextAdvancedCommand.NotifyCanExecuteChanged();
+            }
+        }
 
         public IObservable<bool> SomeParameter;
 
         public MainWindowViewModel()
         {
             SomeParameter = this.WhenAnyValue(x => x.RequiredText, y => y.Length > 5).Throttle(new TimeSpan(5000));
-
+            
             BackCommand = ReactiveCommand.Create<RoutedEventArgs>(Back);
             NextCommand = ReactiveCommand.Create<RoutedEventArgs>(Next);
         }
@@ -46,7 +63,20 @@ namespace WizardExample.ViewModels
             {
                 //pretend there's code here that closes the dialog
             }
-            
         }
+        [RelayCommand (CanExecute = nameof(CanGoNext))]
+        private void NextAdvanced()
+        {
+            if (selectedIndex == 1 && RequiredText.Length > 5)
+            {
+                SelectedIndex++;
+            }
+            else
+            {
+                SelectedIndex++;
+            }
+        }
+
+        private bool CanGoNext => selectedIndex != 1 || RequiredText.Length > 5;
     }
 }
