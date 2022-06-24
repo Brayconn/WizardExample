@@ -113,9 +113,11 @@ namespace WizardExample.Controls
             {
                 if (carousel.SelectedItem is Control control)
                 {
-                    ReplaceBinding(ref backEnabledBinding, BackButton, Button.IsEnabledProperty, control, BackEnabled);
-                    ReplaceBinding(ref nextEnabledBinding, NextButton, Button.IsEnabledProperty, control, NextEnabled);
-                    ReplaceBinding(ref nextContentBinding, NextButton, Button.ContentProperty, control, NextContent);
+                    BackButton.IsEnabled = carousel.SelectedIndex > 0;
+                    NextButton.Content = carousel.SelectedIndex < carousel.ItemCount - 1 ? "Next" : "Finish";
+                    //ReplaceBinding(ref backEnabledBinding, BackButton, Button.IsEnabledProperty, control, BackEnabled);
+                    //ReplaceBinding(ref nextEnabledBinding, NextButton, Button.IsEnabledProperty, control, NextEnabled);
+                    //ReplaceBinding(ref nextContentBinding, NextButton, Button.ContentProperty, control, NextContent);
                 }
             }
         }
